@@ -17,12 +17,19 @@ class ProductController extends Controller
 
     public function create()
     {
-        return view('product.create');
+        $categories = Category::all();
+        return view('product.create', compact('categories'));
     }
 
     public function store()
     {
-        $data = request()->validate(['name' => 'string', 'price' => 'string', 'description' => '']);
+        $data = request()->validate([
+            'name' => 'string',
+            'price' => 'string',
+            'description' => '',
+            'category_id' => ''
+        ]);
+
         Product::create($data);
         return redirect()->route('product.index');
     }
@@ -34,12 +41,18 @@ class ProductController extends Controller
 
     public function edit(Product $product)
     {
-        return view('product.edit', compact('product'));
+        $categories = Category::all();
+        return view('product.edit', compact('product', 'categories'));
     }
 
     public function update(Product $product)
     {
-        $data = request()->validate(['name' => 'string', 'price' => 'string', 'description' => '']);
+        $data = request()->validate([
+            'name' => 'string',
+            'price' => 'string',
+            'description' => '',
+            'category_id' => ''
+        ]);
         $product->update($data);
         return redirect()->route('product.show', $product->id);
     }

@@ -19,6 +19,17 @@
                             <label for="exampleFormControlTextarea1" class="form-label">Description</label>
                             <textarea class="form-control" name="description" id="exampleFormControlTextarea1" rows="3" >{{$product->description}}</textarea>
                         </div>
+                        <div class="mb-3">
+                            <label for="Category" class="form-label">Categories</label>
+                            <select class="form-select" aria-label="Category" name="category_id">
+
+                                @foreach($categories as $category)
+                                    <option {{$category->id === $product->category->id ? 'Not selected' : ''}} value="{{$category->id}}">
+                                        {{$category->title}}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
                         <button type="submit" class="btn btn-primary">Update</button>
                     </form>
                 </div>
