@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Color;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -10,9 +11,6 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $product = Product::find(1);
-        dd($product->category);
-
         $products = Product::all();
         return view('product.index', compact('products'));
     }
