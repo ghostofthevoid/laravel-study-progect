@@ -28,6 +28,15 @@
                                 @endforeach
                             </select>
                         </div>
+                        @foreach($colors as $color)
+                            <div class="form-check">
+                                <input class="forinputm-check-input" type="checkbox" value="{{$color->id}}" id="colors"
+                                       name="colors[]">
+                                <label class="form-check-label" for="colors">
+                                    {{$color->title}}
+                                </label>
+                            </div>
+                        @endforeach
                         <button type="submit" class="btn btn-primary">Create</button>
                     </form>
                 </div>
