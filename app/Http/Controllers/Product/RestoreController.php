@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Product;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 
-class RestoreController extends Controller
+class RestoreController extends BaseController
 {
    public function __invoke($id)
    {

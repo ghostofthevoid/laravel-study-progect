@@ -7,7 +7,7 @@ use App\Models\Category;
 use App\Models\Color;
 use App\Models\Product;
 
-class CreateController extends Controller
+class CreateController extends BaseController
 {
    public function __invoke()
    {

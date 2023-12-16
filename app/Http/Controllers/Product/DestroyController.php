@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Product;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 
-class DestroyController extends Controller
+class DestroyController extends BaseController
 {
    public function __invoke(Product $product)
    {

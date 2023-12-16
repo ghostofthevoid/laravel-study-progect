@@ -6,17 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Product\UpdateRequest;
 use App\Models\Product;
 
-class UpdateController extends Controller
+class UpdateController extends BaseController
 {
    public function __invoke(UpdateRequest $request, Product $product)
    {
        $data = $request->validated();
 
-       $colors = $data['colors'];
-       unset($data['colors']);
+       $this->service->update($data);
 
-       $product->update($data);
-       $product->colors()->sync($colors);
        return redirect()->route('product.show', $product->id);
    }
 }
