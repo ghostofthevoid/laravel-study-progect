@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,17 +18,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::namespace('App\\Http\\Controllers')->group(function () {
-    Route::get('/products', 'ProductController@index')->name('product.index');
-    Route::post('/products', 'ProductController@store')->name('product.store');
-    Route::get('/products/create', 'ProductController@create')->name('product.create');
+Route::namespace('App\\Http\\Controllers\\Product')->group(function () {
+    Route::get('/products', 'IndexController')->name('product.index');
+    Route::post('/products', 'StoreController')->name('product.store');
+    Route::get('/products/create', 'CreateController')->name('product.create');
 
-    Route::get('/products/{product}', 'ProductController@show')->name('product.show');
-    Route::get('/products/{product}/edit', 'ProductController@edit')->name('product.edit');
-    Route::patch('/products/{product}', 'ProductController@update')->name('product.update');
-    Route::delete('/products/{product}', 'ProductController@destroy')->name('product.destroy');
+    Route::get('/products/{product}', 'ShowController')->name('product.show');
+    Route::get('/products/{product}/edit', 'EditController')->name('product.edit');
+    Route::patch('/products/{product}', 'UpdateController')->name('product.update');
+    Route::delete('/products/{product}', 'DestroyController')->name('product.destroy');
 
-    Route::get('/products/{product}/restore', 'ProductController@restore');
+    Route::get('/products/{product}/restore', 'RestoreController');
 });
 
 
