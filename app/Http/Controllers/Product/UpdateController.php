@@ -12,7 +12,7 @@ class UpdateController extends BaseController
    {
        $data = $request->validated();
 
-       $this->service->update($data);
+       $this->service->update($product, $data);
 
        return redirect()->route('product.show', $product->id);
    }
