@@ -38,10 +38,9 @@
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" value="{{$color->id}}" id="colors"
                                        name="colors[]"
-                                @foreach($product->colors as $prodColor)
+                                    @foreach($product->colors as $prodColor)
                                     {{$color->id === $prodColor->id ? 'checked' : ''}}
-                                    @endforeach
-                                >
+                                    @endforeach>
                                 <label class="form-check-label" for="colors">
                                     {{$color->title}}
                                 </label>

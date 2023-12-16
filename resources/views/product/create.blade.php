@@ -8,11 +8,19 @@
                         @csrf
                         <div class="mb-3">
                             <label for="exampleInputEmail1" class="form-label">Name</label>
-                            <input type="text" class="form-control" name="name" id="name" aria-describedby="Name">
+                            <input type="text" class="form-control" name="name" id="name" aria-describedby="Name"
+                                   value="{{ old('name') }}">
+                            @error('name')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="mb-3">
                             <label for="exampleInputEmail1" class="form-label">Price</label>
-                            <input type="text" class="form-control" name="price" id="price" aria-describedby="Price">
+                            <input type="text" class="form-control" name="price" id="price" aria-describedby="Price"
+                                   value="{{ old('price') }}">
+                            @error('price')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="mb-3">
                             <label for="exampleFormControlTextarea1" class="form-label">Description</label>
@@ -21,10 +29,12 @@
                         </div>
                         <div class="mb-3">
                             <label for="Category" class="form-label">Categories</label>
-                            <select class="form-select" aria-label="Category" name="category_id" >
+                            <select class="form-select" aria-label="Category" name="category_id">
                                 <option selected value="{{null}}">Not selected</option>
                                 @foreach($categories as $category)
-                                    <option value="{{$category->id}}">{{$category->title}}</option>
+                                    <option
+                                        {{old('category_id') == $category->id ? 'selected': ''}}
+                                        value="{{$category->id}}">{{$category->title}}</option>
                                 @endforeach
                             </select>
                         </div>
