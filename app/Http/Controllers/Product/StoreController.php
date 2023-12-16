@@ -3,19 +3,14 @@
 namespace App\Http\Controllers\Product;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Product\StoreRequest;
 use App\Models\Product;
 
 class StoreController extends Controller
 {
-   public function __invoke()
+   public function __invoke(StoreRequest $request)
    {
-       $data = request()->validate([
-           'name' => 'required|unique:products|string',
-           'price' => 'required|string',
-           'description' => '',
-           'category_id' => '',
-           'colors' => ''
-       ]);
+       $data = $request->validated();
 
        $colors = $data['colors'];
        unset($data['colors']);

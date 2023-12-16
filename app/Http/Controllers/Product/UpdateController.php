@@ -3,19 +3,14 @@
 namespace App\Http\Controllers\Product;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Product\UpdateRequest;
 use App\Models\Product;
 
 class UpdateController extends Controller
 {
-   public function __invoke(Product $product)
+   public function __invoke(UpdateRequest $request, Product $product)
    {
-       $data = request()->validate([
-           'name' => 'string',
-           'price' => 'string',
-           'description' => '',
-           'category_id' => '',
-           'colors' => ''
-       ]);
+       $data = $request->validated();
 
        $colors = $data['colors'];
        unset($data['colors']);
