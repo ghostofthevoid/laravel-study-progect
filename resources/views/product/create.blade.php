@@ -4,7 +4,7 @@
         <div class="container h-100 py-5 ">
             <div class="table-responsive-sm mx-5">
                 <div class="container-sm">
-                    <form action="{{route('product.store')}}" method="POST">
+                    <form action="{{route('product.store')}}" method="POST" novalidate>
                         @csrf
                         <div class="mb-3">
                             <label for="exampleInputEmail1" class="form-label">Name</label>
@@ -21,8 +21,8 @@
                         </div>
                         <div class="mb-3">
                             <label for="Category" class="form-label">Categories</label>
-                            <select class="form-select" aria-label="Category" name="category_id">
-                                <option selected>Not selected</option>
+                            <select class="form-select" aria-label="Category" name="category_id" >
+                                <option selected value="{{null}}">Not selected</option>
                                 @foreach($categories as $category)
                                     <option value="{{$category->id}}">{{$category->title}}</option>
                                 @endforeach

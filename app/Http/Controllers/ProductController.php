@@ -32,16 +32,14 @@ class ProductController extends Controller
             'category_id' => '',
             'colors' => ''
         ]);
-        $colors = $data['colors'];
-        unset($data['colors']);
 
-        $product =  Product::create($data);
+            $colors = $data['colors'];
+            unset($data['colors']);
 
-        foreach ($colors as $color) {
-            ColorProduct::firstOrCreate([
-                'color_id' => $color,
-                'product_id' => $product->id,
-            ]);
+        $product = Product::create($data);
+
+        if (isset($colors)) {
+            $product->colors()->attach($colors, ['created_at' => new \DateTime('now')]);
         }
         return redirect()->route('product.index');
     }
@@ -64,9 +62,15 @@ class ProductController extends Controller
             'name' => 'string',
             'price' => 'string',
             'description' => '',
-            'category_id' => ''
+            'category_id' => '',
+            'colors' => ''
         ]);
+
+        $colors = $data['colors'];
+        unset($data['colors']);
+
         $product->update($data);
+        $product->colors()->sync($colors);
         return redirect()->route('product.show', $product->id);
     }
 
