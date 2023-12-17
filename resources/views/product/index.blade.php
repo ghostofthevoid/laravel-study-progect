@@ -24,6 +24,9 @@
                         </table>
                     </div>
                 </div>
+                <div>
+                    {{$products->links()}}
+                </div>
             </div>
         </section>
 

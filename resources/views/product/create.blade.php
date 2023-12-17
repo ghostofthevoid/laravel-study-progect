@@ -38,21 +38,23 @@
                                 @endforeach
                             </select>
                         </div>
-                        @foreach($colors as $color)
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" value="{{$color->id}}" id="colors"
-                                       name="colors[]">
-                                <label class="form-check-label" for="colors">
-                                    {{$color->title}}
-                                </label>
-                            </div>
-                        @endforeach
+                        <div class="mb-3">
+                            @foreach($colors as $color)
+                                <div class="form-check ">
+                                    <input class="form-check-input" type="checkbox" value="{{$color->id}}" id="colors"
+                                           name="colors[]">
+                                    <label class="form-check-label" for="colors">
+                                        {{$color->title}}
+                                    </label>
+                                </div>
+                            @endforeach
+                        </div>
+
                         <button type="submit" class="btn btn-primary">Create</button>
                     </form>
                 </div>
             </div>
         </div>
     </section>
-
 @endsection
 
