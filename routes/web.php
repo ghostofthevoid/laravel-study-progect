@@ -32,6 +32,18 @@ Route::namespace('App\\Http\\Controllers\\Product')->group(function () {
 });
 
 
+    Route::namespace('App\\Http\\Controllers\\Admin\\Product')->group(function () {
+        Route::prefix('admin')->group(function () {
+            Route::get('/product', 'IndexController')->name('main.product.index');
+        });
+    });
+
+
+
+Route::namespace('App\\Http\\Controllers')->group(function () {
+    Route::get('/main', 'MainController@index')->name('main.index');
+});
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

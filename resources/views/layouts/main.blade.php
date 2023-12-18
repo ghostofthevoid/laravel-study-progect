@@ -24,10 +24,13 @@
                 <div class="collapse navbar-collapse" id="navmenu">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a href="{{route('product.create')}}" class="nav-link">Create product</a>
+                            <a href="{{route('product.create')}}" class="nav-link">Add</a>
                         </li>
                         <li class="nav-item">
                             <a href="{{route('product.index')}}" class="nav-link">View products</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('main.index')}}" class="nav-link">Admin</a>
                         </li>
                         <li class="nav-item">
                             <a href="#"><i class="fa-solid fa-cart-shopping"><span><sup id="quantity"></sup></span></i></a>
