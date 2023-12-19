@@ -32,9 +32,10 @@ Route::namespace('App\\Http\\Controllers\\Product')->group(function () {
 });
 
 
-    Route::namespace('App\\Http\\Controllers\\Admin\\Product')->group(function () {
+  Route::namespace('App\\Http\\Controllers\\Admin\\Product')->group(function () {
         Route::prefix('admin')->group(function () {
-            Route::get('/product', 'IndexController')->name('main.product.index');
+            Route::get('/product', 'IndexController@index')->name('main.product.index');
+            Route::get('/category', 'CategoryController@index')->name('main.category.index');
         });
     });
 
