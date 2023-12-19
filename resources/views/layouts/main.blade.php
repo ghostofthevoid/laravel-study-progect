@@ -30,7 +30,7 @@
                             <a href="{{route('product.index')}}" class="nav-link">View products</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('main.index')}}" class="nav-link">Admin</a>
+                            <a href="{{route('main.product.index')}}" class="nav-link">Admin</a>
                         </li>
                         <li class="nav-item">
                             <a href="#"><i class="fa-solid fa-cart-shopping"><span><sup id="quantity"></sup></span></i></a>

@@ -7,7 +7,7 @@ use App\Models\Product;
 
 class IndexController extends Controller
 {
-    public function __invoke()
+    public function index()
     {
         $products = Product::paginate(10);
         return view('admin.product.index', compact('products'));
