@@ -22,7 +22,9 @@ class CategoryController extends Controller
     public function store(StoreRequest $request)
     {
         $data = $request->validated();
-        Category::firstOrCreate($data);
+        $existingRecord = Category::withTrashed()->where($data)->first();
+        $existingRecord ? $existingRecord->restore() :  Category::firstOrCreate($data);
+
         return redirect()->route('admin.category.index');
     }
 
@@ -38,9 +40,15 @@ class CategoryController extends Controller
 
     public function update(Category $category)
     {
-        $data = request()->validate(['title'=>'string']);
+        $data = request()->validate(['title' => 'string']);
         $category->update($data);
         return view('admin.category.show', compact('category'));
+    }
+
+    public function delete(Category $category)
+    {
+        $category->delete();
+        return redirect()->route('admin.category.index');
     }
 }
 

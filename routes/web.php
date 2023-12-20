@@ -42,6 +42,7 @@ Route::namespace('App\\Http\\Controllers\\Admin\\Product')->group(function () {
             Route::get('/{category}', 'CategoryController@show')->name('admin.category.show');
             Route::get('/{category}/edit', 'CategoryController@edit')->name('admin.category.edit');
             Route::patch('/{category}', 'CategoryController@update')->name('admin.category.update');
+            Route::delete('/{category}', 'CategoryController@delete')->name('admin.category.delete');
         });
     });
 });

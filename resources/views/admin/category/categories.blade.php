@@ -25,19 +25,30 @@
                                 <th>#</th>
                                 <th>ID</th>
                                 <th>Name</th>
-                                <th colspan="2">Action</th>
+                                <th colspan="3">Action</th>
                             </tr>
                             </thead>
                             <tbody>
                             @foreach($categories as $category)
-                            <tr>
-                                <td>{{$loop->index + 1}}</td>
-                                <td>{{$category->id}}</td>
-                                <td>{{$category->title}}</td>
-                                <td><a href="{{route('admin.category.show', $category->id)}}" class="text-indigo"><i class="fas fa-regular fa-eye"></i></a></td>
-                                <td><a href="{{route('admin.category.edit', $category->id)}}" class="text-success"><i class="fas fa-solid fa-pen"></i></a></td>
-                            </tr>
+                                <tr>
+                                    <td>{{$loop->index + 1}}</td>
+                                    <td>{{$category->id}}</td>
+                                    <td>{{$category->title}}</td>
+                                    <td><a href="{{route('admin.category.show', $category->id)}}" class="text-indigo"><i
+                                                class="fas fa-regular fa-eye"></i></a></td>
+                                    <td><a href="{{route('admin.category.edit', $category->id)}}"
+                                           class="text-success"><i class="fas fa-solid fa-pen"></i></a></td>
 
+                                    <td>
+                                        <form action="{{route('admin.category.delete',  $category->id)}}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="border-0 bg-transparent">
+                                            <i class="fas fa-solid fa-trash text-danger"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
                             @endforeach
                             </tbody>
                         </table>
