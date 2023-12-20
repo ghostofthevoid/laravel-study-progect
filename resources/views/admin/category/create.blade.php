@@ -20,7 +20,7 @@
                     @csrf
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Nmae</label>
+                            <label for="exampleInputEmail1">Name</label>
                             <input type="text" class="form-control" name="title" id="exampleInputEmail1"
                                    placeholder="Category name">
                             @error('title')

@@ -39,6 +39,9 @@ Route::namespace('App\\Http\\Controllers\\Admin\\Product')->group(function () {
             Route::get('/category', 'CategoryController@index')->name('admin.category.index');
             Route::get('/create', 'CategoryController@create')->name('admin.category.create');
             Route::post('/', 'CategoryController@store')->name('admin.category.store');
+            Route::get('/{category}', 'CategoryController@show')->name('admin.category.show');
+            Route::get('/{category}/edit', 'CategoryController@edit')->name('admin.category.edit');
+            Route::patch('/{category}', 'CategoryController@update')->name('admin.category.update');
         });
     });
 });

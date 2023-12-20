@@ -7,25 +7,46 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Dashboard</h1>
+                        <h1 class="m-0">Categories</h1>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
             </div><!-- /.container-fluid -->
         </div>
-    <div class="container">
-        <a href="{{route('admin.category.create')}}" class="btn btn-block btn-primary col-1">Add</a>
-    </div>
-    <section class="h-50  h-custom py-5 justify-content-center" id="main-sectin" >
-        <div class="container h-100 py-5 ">
-            <div class="table-responsive-sm mx-5">
-                <div class="container text-center">
-                    <div class="row align-items-start">
-                        <div class="col">
+        <div class="col-1">
+            <a href="{{route('admin.category.create')}}" class="btn btn-block btn-primary ">Add</a>
+        </div>
+        <div class="row mt-3">
+            <div class="col-8">
+                <div class="card">
+                    <div class="card-body table-responsive p-0">
+                        <table class="table table-hover text-nowrap text-center">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th colspan="2">Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($categories as $category)
+                            <tr>
+                                <td>{{$loop->index + 1}}</td>
+                                <td>{{$category->id}}</td>
+                                <td>{{$category->title}}</td>
+                                <td><a href="{{route('admin.category.show', $category->id)}}" class="text-indigo"><i class="fas fa-regular fa-eye"></i></a></td>
+                                <td><a href="{{route('admin.category.edit', $category->id)}}" class="text-success"><i class="fas fa-solid fa-pen"></i></a></td>
+                            </tr>
 
-                        </div>
+                            @endforeach
+                            </tbody>
+                        </table>
                     </div>
+                </div>
+                <div>
+                    {{$categories->links()}}
                 </div>
             </div>
         </div>
-    </section>
+
 @endsection

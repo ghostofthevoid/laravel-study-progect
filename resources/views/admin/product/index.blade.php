@@ -12,7 +12,7 @@
                 </div><!-- /.row -->
             </div><!-- /.container-fluid -->
         </div>
-    <section class="h-50  h-custom py-5 justify-content-center" id="main-sectin" style="background-color: #eee;">
+    <section class="h-50  h-custom py-5 justify-content-center" id="main-sectin" ">
         <div class="container h-100 py-5 ">
             <div class="table-responsive-sm mx-5">
                 <div class="container-sm">
