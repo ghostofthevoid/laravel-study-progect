@@ -44,6 +44,15 @@ Route::namespace('App\\Http\\Controllers\\Admin\\Product')->group(function () {
             Route::patch('/{category}', 'CategoryController@update')->name('admin.category.update');
             Route::delete('/{category}', 'CategoryController@delete')->name('admin.category.delete');
         });
+        Route::prefix('colors')->group(function () {
+            Route::get('/color', 'ColorController@index')->name('admin.color.index');
+            Route::get('/create', 'ColorController@create')->name('admin.color.create');
+            Route::post('/', 'ColorController@store')->name('admin.color.store');
+            Route::get('/{color}', 'ColorController@show')->name('admin.color.show');
+            Route::get('/{color}/edit', 'ColorController@edit')->name('admin.color.edit');
+            Route::patch('/{color}', 'ColorController@update')->name('admin.color.update');
+            Route::delete('/{color}', 'ColorController@delete')->name('admin.color.delete');
+        });
     });
 });
 

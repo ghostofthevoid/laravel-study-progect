@@ -29,7 +29,7 @@
                 <li class="nav-header">TOOLS</li>
                 <li class="nav-item">
                     <a href="{{route('admin.product.index')}}" class="nav-link">
-                        <i class="nav-icon fas fa-solid fa-list-ol"></i>
+                        <i class="nav-icon fas fa-regular fa-store"></i>
                         <p>
                             Products
                             <span class="badge badge-info right">{{isset($products) ? $products->total()  : ''}}</span>
@@ -41,6 +41,15 @@
                         <i class="nav-icon fas fa-solid fa-list-ol"></i>
                         <p>
                             Categories
+                            <span class="badge badge-info right"></span>
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{route('admin.color.index')}}" class="nav-link">
+                        <i class="nav-icon fas fa-solid fa-palette"></i>
+                        <p>
+                            Colors
                             <span class="badge badge-info right"></span>
                         </p>
                     </a>
