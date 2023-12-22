@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Product;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreRequest;
@@ -22,6 +22,7 @@ class ColorController extends Controller
     public function store(StoreRequest $request)
     {
         $data = $request->validated();
+        $data['title'] = ucfirst($data['title']);
         $existingRecord = Color::withTrashed()->where($data)->first();
         $existingRecord ? $existingRecord->restore() :  Color::firstOrCreate($data);
 

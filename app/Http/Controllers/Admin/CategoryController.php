@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Product;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreRequest;
@@ -23,6 +23,7 @@ class CategoryController extends Controller
     {
         $data = $request->validated();
         $existingRecord = Category::withTrashed()->where($data)->first();
+        $data['title'] = ucfirst($data['title']);
         $existingRecord ? $existingRecord->restore() :  Category::firstOrCreate($data);
 
         return redirect()->route('admin.category.index');

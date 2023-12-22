@@ -32,9 +32,8 @@ Route::namespace('App\\Http\\Controllers\\Product')->group(function () {
 });
 
 
-Route::namespace('App\\Http\\Controllers\\Admin\\Product')->group(function () {
+Route::namespace('App\\Http\\Controllers\\Admin')->group(function () {
     Route::prefix('admin')->group(function () {
-        Route::get('/product', 'IndexController@index')->name('admin.product.index');
         Route::prefix('categories')->group(function () {
             Route::get('/category', 'CategoryController@index')->name('admin.category.index');
             Route::get('/create', 'CategoryController@create')->name('admin.category.create');
@@ -52,6 +51,15 @@ Route::namespace('App\\Http\\Controllers\\Admin\\Product')->group(function () {
             Route::get('/{color}/edit', 'ColorController@edit')->name('admin.color.edit');
             Route::patch('/{color}', 'ColorController@update')->name('admin.color.update');
             Route::delete('/{color}', 'ColorController@delete')->name('admin.color.delete');
+        });
+        Route::prefix('products')->group(function () {
+            Route::get('/product', 'ProductController@index')->name('admin.product.index');
+            Route::get('/create', 'ProductController@create')->name('admin.product.create');
+            Route::post('/', 'ProductController@store')->name('admin.product.store');
+            Route::get('/{product}', 'ProductController@show')->name('admin.product.show');
+            Route::get('/{product}/edit', 'ProductController@edit')->name('admin.product.edit');
+            Route::patch('/{product}', 'ProductController@update')->name('admin.product.update');
+            Route::delete('/{product}', 'ProductController@delete')->name('admin.product.delete');
         });
     });
 });
