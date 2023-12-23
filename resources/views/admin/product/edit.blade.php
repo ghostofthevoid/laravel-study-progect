@@ -15,7 +15,8 @@
 
         <div class="row  align-items-start justify-content-start ">
             <div class="col-10  rounded-10">
-                <form action="{{route('admin.product.update', $product->id)}}" method="POST" class="shadow bg-white" enctype="multipart/form-data">
+                <form action="{{route('admin.product.update', $product->id)}}" method="POST" class="shadow bg-white"
+                      enctype="multipart/form-data">
                     @csrf
                     @method('PATCH')
                     <div class="card-body ">
@@ -48,14 +49,14 @@
                         </div>
                         <div class="form-group w-50">
                             <label>Colors</label>
-                            <select class="select2" name="color_ids[]" multiple="multiple" data-placeholder="select colors" style="width: 100%;">
+                            <select class="select2" name="color_ids[]" multiple="multiple"
+                                    data-placeholder="select colors" style="width: 100%;">
                                 @foreach($colors as $color)
-                                <option value="{{$color->id}}"
-                                    @foreach($product->colors as $prodColor)
-                                    {{$color->id === $prodColor->id ? 'selected' : ''}}
-                                    @endforeach>
-                                    {{$color->title}}
-                                </option>
+                                    <option {{is_array($product->colors->pluck('id')->toArray()) &&
+                                         in_array($color->id, $product->colors->pluck('id')->toArray()) ?
+                                          'selected' : ''}} value="{{$color->id}}">
+                                        {{$color->title}}
+                                    </option>
                                 @endforeach
                             </select>
                         </div>

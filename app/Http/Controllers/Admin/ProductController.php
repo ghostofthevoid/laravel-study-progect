@@ -55,6 +55,7 @@ class ProductController extends Controller
     public function show(Product $product)
     {
         $colors = Color::all();
+
         return view('admin.product.show', compact('product', 'colors'));
     }
 
@@ -73,11 +74,17 @@ class ProductController extends Controller
             'description' => '',
             'category_id' => 'required|integer|exists:categories,id',
             'color_ids' => 'nullable|array',
-            'color_ids.*' => 'nullable|integer|exists:colors,id'
+            'color_ids.*' => 'nullable|integer|exists:colors,id',
+            'image' => "nullable|file"
         ]);
 
         $colors = $data['color_ids'];
         unset($data['color_ids']);
+
+        if (isset($data['image'])) {
+            $data['image'] = Storage::disk('public')->put('/images', $data['image']);
+        }
+
 
         $product->update($data);
         $product->colors()->sync($colors);
