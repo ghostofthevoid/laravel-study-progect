@@ -15,7 +15,7 @@
 
         <div class="row  align-items-start justify-content-start ">
             <div class="col-10  rounded-10">
-                <form action="{{route('admin.product.update', $product->id)}}" method="POST" class="shadow bg-white">
+                <form action="{{route('admin.product.update', $product->id)}}" method="POST" class="shadow bg-white" enctype="multipart/form-data">
                     @csrf
                     @method('PATCH')
                     <div class="card-body ">
@@ -46,25 +46,36 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="form-group border-info my-3">
-                            <div class="overflow-auto" style="max-height: 100px;">
+                        <div class="form-group w-50">
+                            <label>Colors</label>
+                            <select class="select2" name="color_ids[]" multiple="multiple" data-placeholder="select colors" style="width: 100%;">
                                 @foreach($colors as $color)
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="{{$color->id}}"
-                                               id="colors"
-                                               name="colors[]"
-                                        @foreach($product->colors as $prodColor)
-                                            {{$color->id === $prodColor->id ? 'checked' : ''}}
-                                            @endforeach>
-                                        <label class="form-check-label" for="colors">
-                                            {{$color->title}}
-                                        </label>
-                                    </div>
+                                <option value="{{$color->id}}"
+                                    @foreach($product->colors as $prodColor)
+                                    {{$color->id === $prodColor->id ? 'selected' : ''}}
+                                    @endforeach>
+                                    {{$color->title}}
+                                </option>
                                 @endforeach
-                            </div>
+                            </select>
                         </div>
                         <div class="form-group">
                             <textarea id="summernote" name="description">{{$product->description}}</textarea>
+                        </div>
+                        <div class="product-image-thumb">
+                            <img src="{{url('storage/' . $product->image)}}" alt="Product image" s>
+                        </div>
+                        <div class="form-group w-50">
+                            <label for="exampleInputFile">Image edit</label>
+                            <div class="input-group">
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" name="image">
+                                    <label class="custom-file-label" for="exampleInputFile">Edit file</label>
+                                </div>
+                                <div class="input-group-append">
+                                    <span class="input-group-text">Upload</span>
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-warning">Update</button>

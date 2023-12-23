@@ -3,11 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\StoreRequest;
-use App\Http\Requests\Product\UpdateRequest;
 use App\Models\Category;
 use App\Models\Color;
 use App\Models\Product;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -27,17 +26,21 @@ class ProductController extends Controller
     public function store()
     {
         $data = request()->validate([
-            'name' => 'required|string',
-            'price' => 'required|string',
+            'name' => 'string',
+            'price' => 'string',
             'description' => '',
-            'category_id' => '',
-            'colors' => ''
+            'category_id' => 'required|integer|exists:categories,id',
+            'color_ids' => 'nullable|array',
+            'color_ids.*' => 'nullable|integer|exists:colors,id',
+            'image' => "required|file"
         ]);
 
-        $colors = $data['colors'];
-        unset($data['colors']);
+        $colors = $data['color_ids'];
+        unset($data['color_ids']);
 
-        $data['name'] = ucfirst($data['name']);
+        $data['image'] = Storage::disk('public')->put('/images', $data['image']);
+
+
         $existingRecord = Product::withTrashed()->where('name', $data['name'])->first();
 
         $existingRecord ? $existingRecord->restore() : $product = Product::firstOrCreate($data);
@@ -51,7 +54,8 @@ class ProductController extends Controller
 
     public function show(Product $product)
     {
-        return view('admin.product.show', compact('product'));
+        $colors = Color::all();
+        return view('admin.product.show', compact('product', 'colors'));
     }
 
     public function edit(Product $product)
@@ -67,12 +71,13 @@ class ProductController extends Controller
             'name' => 'string',
             'price' => 'string',
             'description' => '',
-            'category_id' => '',
-            'colors' => ''
+            'category_id' => 'required|integer|exists:categories,id',
+            'color_ids' => 'nullable|array',
+            'color_ids.*' => 'nullable|integer|exists:colors,id'
         ]);
 
-        $colors = $data['colors'];
-        unset($data['colors']);
+        $colors = $data['color_ids'];
+        unset($data['color_ids']);
 
         $product->update($data);
         $product->colors()->sync($colors);

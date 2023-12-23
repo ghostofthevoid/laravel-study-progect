@@ -11,7 +11,7 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css'}}" integrity="sha512-...your-sha-hash-here..." crossorigin="anonymous" />
 
-    <link rel="stylesheet" href="{{'../../plugins/fontawesome-free/css/all.min.css'}}">
+    <link rel="stylesheet" href="{{'plugins/fontawesome-free/css/all.min.css'}}">
     <!-- etc. -->
 
     <link type="text/css" rel="stylesheet" href="{{ mix('sass/app.sass') }}">
@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="{{asset('https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css')}}">
     <!-- Tempusdominus Bootstrap 4 -->
     <link rel="stylesheet" href="{{asset('plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css')}}">
+    <link rel="stylesheet" href="{{asset('plugins/select2/css/select2.min.css')}}">
     <!-- iCheck -->
     <link rel="stylesheet" href="{{asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
     <!-- JQVMap -->
@@ -89,6 +90,10 @@
 <script src="{{asset('plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')}}"></script>
 <!-- Summernote -->
 <script src="{{asset('plugins/summernote/summernote-bs4.min.js')}}"></script>
+<!-- bs-custom-file-input -->
+<script src="{{asset('plugins/bs-custom-file-input/bs-custom-file-input.min.js')}}"></script>
+
+<script src="{{asset('plugins/select2/js/select2.full.min.js')}}"></script>
 <!-- overlayScrollbars -->
 <script src="{{asset('plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')}}"></script>
 <!-- AdminLTE App -->
@@ -109,6 +114,10 @@
             ]
         });
     });
+    $(function () {
+        bsCustomFileInput.init()
+    });
+    $('.select2').select2()
 </script>
 </body>
 </html>

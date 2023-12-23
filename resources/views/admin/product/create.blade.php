@@ -15,7 +15,8 @@
         <section class="h-custom py-3">
             <div class="row  align-items-start justify-content-start ">
                 <div class="col-10 mx-5 rounded-10">
-                    <form action="{{route('admin.product.store')}}" method="POST" class="shadow bg-white" novalidate>
+                    <form action="{{route('admin.product.store')}}" method="POST" class="shadow bg-white" novalidate
+                          enctype="multipart/form-data">
                         @csrf
                         <div class="card-body ">
                             <div class="form-group w-50">
@@ -46,21 +47,32 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="form-group border-info my-3">
-                                <div class="overflow-auto" style="max-height: 100px;">
+                            <div class="form-group w-50">
+                                <label>Colors</label>
+                                <select class="select2" name="color_ids[]" multiple="multiple"
+                                        data-placeholder="select colors" style="width: 100%;">
                                     @foreach($colors as $color)
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="{{$color->id}}"
-                                                   id="colors" name="colors[]">
-                                            <label class="form-check-label" for="colors">
-                                                {{$color->title}}
-                                            </label>
-                                        </div>
+                                        <option
+                                            {{is_array(old('color_ids')) && in_array($color->id, old('color_ids')) ? 'selected' : ''}} value="{{$color->id}}">
+                                            {{$color->title}}
+                                        </option>
                                     @endforeach
-                                </div>
+                                </select>
                             </div>
                             <div class="form-group">
                                 <textarea id="summernote" name="description"></textarea>
+                            </div>
+                            <div class="form-group w-50">
+                                <label for="exampleInputFile">File input</label>
+                                <div class="input-group">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" name="image">
+                                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                                    </div>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">Upload</span>
+                                    </div>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary">Create</button>
