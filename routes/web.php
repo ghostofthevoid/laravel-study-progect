@@ -31,8 +31,8 @@ Route::namespace('App\\Http\\Controllers\\Product')->group(function () {
     Route::get('/products/{product}/restore', 'RestoreController');
 });
 
-//->middleware(['auth', 'admin'])
-Route::namespace('App\\Http\\Controllers\\Admin')->group(function () {
+
+Route::namespace('App\\Http\\Controllers\\Admin')->middleware(['auth', 'admin'])->group(function () {
     Route::prefix('admin')->group(function () {
         Route::prefix('categories')->group(function () {
             Route::get('/category', 'CategoryController@index')->name('admin.category.index');
