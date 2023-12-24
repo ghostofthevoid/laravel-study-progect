@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Color;
 use App\Models\Product;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
@@ -25,30 +26,38 @@ class ProductController extends Controller
 
     public function store()
     {
-        $data = request()->validate([
-            'name' => 'string',
-            'price' => 'string',
-            'description' => '',
-            'category_id' => 'required|integer|exists:categories,id',
-            'color_ids' => 'nullable|array',
-            'color_ids.*' => 'nullable|integer|exists:colors,id',
-            'image' => "required|file"
-        ]);
+        try {
+            DB::beginTransaction();
+            $data = request()->validate([
+                'name' => 'string',
+                'price' => 'string',
+                'description' => '',
+                'category_id' => 'required|integer|exists:categories,id',
+                'color_ids' => 'nullable|array',
+                'color_ids.*' => 'nullable|integer|exists:colors,id',
+                'image' => "required|file"
+            ]);
 
-        $colors = $data['color_ids'];
-        unset($data['color_ids']);
+            if (isset($data['color_ids'])) {
+                $colors = $data['color_ids'];
+                unset($data['color_ids']);
+            }
 
-        $data['image'] = Storage::disk('public')->put('/images', $data['image']);
+            $data['image'] = Storage::disk('public')->put('/images', $data['image']);
 
 
-        $existingRecord = Product::withTrashed()->where('name', $data['name'])->first();
+            $existingRecord = Product::withTrashed()->where('name', $data['name'])->first();
 
-        $existingRecord ? $existingRecord->restore() : $product = Product::firstOrCreate($data);
+            $existingRecord ? $existingRecord->restore() : $product = Product::firstOrCreate($data);
 
-        if (isset($colors)) {
-            $product->colors()->attach($colors, ['created_at' => new \DateTime('now')]);
+            if (isset($colors)) {
+                $product->colors()->attach($colors, ['created_at' => new \DateTime('now')]);
+            }
+            DB::commit();
+        } catch (\Exception $exception) {
+            DB::rollBack();
+            return $exception->getMessage();
         }
-
         return redirect()->route('admin.product.index');
     }
 
@@ -68,26 +77,32 @@ class ProductController extends Controller
 
     public function update(Product $product)
     {
-        $data = request()->validate([
-            'name' => 'string',
-            'price' => 'string',
-            'description' => '',
-            'category_id' => 'required|integer|exists:categories,id',
-            'color_ids' => 'nullable|array',
-            'color_ids.*' => 'nullable|integer|exists:colors,id',
-            'image' => "nullable|file"
-        ]);
+        try {
+            DB::beginTransaction();
+            $data = request()->validate([
+                'name' => 'string',
+                'price' => 'string',
+                'description' => '',
+                'category_id' => 'required|integer|exists:categories,id',
+                'color_ids' => 'nullable|array',
+                'color_ids.*' => 'nullable|integer|exists:colors,id',
+                'image' => "nullable|file"
+            ]);
+            if (isset($data['color_ids'])) {
+                $colors = $data['color_ids'];
+            }
+            unset($data['color_ids']);
 
-        $colors = $data['color_ids'];
-        unset($data['color_ids']);
-
-        if (isset($data['image'])) {
-            $data['image'] = Storage::disk('public')->put('/images', $data['image']);
+            if (isset($data['image'])) {
+                $data['image'] = Storage::disk('public')->put('/images', $data['image']);
+            }
+            $product->update($data);
+            $product->colors()->sync($colors);
+            DB::commit();
+        } catch (\Exception $exception) {
+            DB::rollBack();
+            return $exception->getMessage();
         }
-
-
-        $product->update($data);
-        $product->colors()->sync($colors);
         return view('admin.product.show', compact('product'));
     }
 
