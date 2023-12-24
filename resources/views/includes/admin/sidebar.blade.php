@@ -28,6 +28,15 @@
                      with font-awesome or any other icon font library -->
                 <li class="nav-header">TOOLS</li>
                 <li class="nav-item">
+                    <a href="{{route('admin.user.index')}}" class="nav-link">
+                        <i class="nav-icon fas fa-solid fa-users"></i>
+                        <p>
+                            Users
+                            <span class="badge badge-info right"></span>
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="{{route('admin.product.index')}}" class="nav-link">
                         <i class="nav-icon fas fa-regular fa-store"></i>
                         <p>

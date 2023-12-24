@@ -31,7 +31,7 @@ Route::namespace('App\\Http\\Controllers\\Product')->group(function () {
     Route::get('/products/{product}/restore', 'RestoreController');
 });
 
-
+//->middleware(['auth', 'admin'])
 Route::namespace('App\\Http\\Controllers\\Admin')->group(function () {
     Route::prefix('admin')->group(function () {
         Route::prefix('categories')->group(function () {
@@ -60,6 +60,15 @@ Route::namespace('App\\Http\\Controllers\\Admin')->group(function () {
             Route::get('/{product}/edit', 'ProductController@edit')->name('admin.product.edit');
             Route::patch('/{product}', 'ProductController@update')->name('admin.product.update');
             Route::delete('/{product}', 'ProductController@delete')->name('admin.product.delete');
+        });
+        Route::prefix('users')->group(function () {
+            Route::get('/user', 'UserController@index')->name('admin.user.index');
+            Route::get('/create', 'UserController@create')->name('admin.user.create');
+            Route::post('/', 'UserController@store')->name('admin.user.store');
+            Route::get('/{user}', 'UserController@show')->name('admin.user.show');
+            Route::get('/{user}/edit', 'UserController@edit')->name('admin.user.edit');
+            Route::patch('/{user}', 'UserController@update')->name('admin.user.update');
+            Route::delete('/{user}', 'UserController@delete')->name('admin.user.delete');
         });
     });
 });

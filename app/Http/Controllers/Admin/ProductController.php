@@ -64,7 +64,6 @@ class ProductController extends Controller
     public function show(Product $product)
     {
         $colors = Color::all();
-
         return view('admin.product.show', compact('product', 'colors'));
     }
 
@@ -88,9 +87,8 @@ class ProductController extends Controller
                 'color_ids.*' => 'nullable|integer|exists:colors,id',
                 'image' => "nullable|file"
             ]);
-            if (isset($data['color_ids'])) {
-                $colors = $data['color_ids'];
-            }
+
+            $colors = $data['color_ids'];
             unset($data['color_ids']);
 
             if (isset($data['image'])) {
@@ -103,7 +101,8 @@ class ProductController extends Controller
             DB::rollBack();
             return $exception->getMessage();
         }
-        return view('admin.product.show', compact('product'));
+        $colors = Color::all();
+        return view('admin.product.show', compact('product', 'colors'));
     }
 
     public function delete(Product $product)
