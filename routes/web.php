@@ -14,26 +14,26 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::get('/', function () {
+//    return view('welcome');
+//});
 
 Route::namespace('App\\Http\\Controllers\\Product')->group(function () {
-    Route::get('/products', 'IndexController')->name('product.index');
+    Route::get('/', 'IndexController')->name('product.index');
     Route::post('/products', 'StoreController')->name('product.store');
-    Route::get('/products/create', 'CreateController')->name('product.create');
-
+    //Route::get('/products/create', 'CreateController')->name('product.create');
     Route::get('/products/{product}', 'ShowController')->name('product.show');
-    Route::get('/products/{product}/edit', 'EditController')->name('product.edit');
-    Route::patch('/products/{product}', 'UpdateController')->name('product.update');
-    Route::delete('/products/{product}', 'DestroyController')->name('product.destroy');
-
-    Route::get('/products/{product}/restore', 'RestoreController');
+//    Route::get('/products/{product}/edit', 'EditController')->name('product.edit');
+//    Route::patch('/products/{product}', 'UpdateController')->name('product.update');
+//    Route::delete('/products/{product}', 'DestroyController')->name('product.destroy');
+//
+//    Route::get('/products/{product}/restore', 'RestoreController');
 });
 
 
 Route::namespace('App\\Http\\Controllers\\Admin')->middleware(['auth', 'admin'])->group(function () {
     Route::prefix('admin')->group(function () {
+        Route::get('/index', 'IndexController@index')->name('admin.index');
         Route::prefix('categories')->group(function () {
             Route::get('/category', 'CategoryController@index')->name('admin.category.index');
             Route::get('/create', 'CategoryController@create')->name('admin.category.create');
@@ -81,3 +81,5 @@ Route::namespace('App\\Http\\Controllers')->group(function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+

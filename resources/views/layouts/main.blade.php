@@ -7,6 +7,10 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+    <!-- Fonts -->
+    <link rel="dns-prefetch" href="//fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
@@ -24,16 +28,41 @@
                 <div class="collapse navbar-collapse" id="navmenu">
                     <ul class="navbar-nav ms-auto">
                         @can('view', auth()->user())
-                        <li class="nav-item">
-                            <a href="{{route('admin.product.index')}}" class="nav-link">Admin</a>
-                        </li>
+                            <li class="nav-item">
+                                <a href="{{route('admin.index')}}" class="nav-link">Admin</a>
+                            </li>
                         @endcan
                         <li class="nav-item">
                             <a href="{{route('product.index')}}" class="nav-link">View products</a>
                         </li>
+                        @if(!auth()->check())
                             <li class="nav-item">
                                 <a href="{{ route('login') }}" class="nav-link">login</a>
                             </li>
+                        @endif
+                        @can(session('status'))
+                            <li class="nav-item dropdown">
+                                @if(isset(Auth::user()->name ))
+                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                                       data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                        {{ Auth::user()->name }}
+                                    </a>
+                                @endif
+                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                    </a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+                                </div>
+                            </li>
+                        @endcan
+
+
                         <li class="nav-item">
                             <a href="#"><i class=" fa-solid fa-cart-shopping"><span><sup id="quantity"></sup></span></i></a>
                         </li>
@@ -45,6 +74,6 @@
     </header>
 </head>
 <body>
-    @yield('content');
+@yield('content');
 </body>
 </html>
