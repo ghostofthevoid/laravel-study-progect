@@ -10,6 +10,7 @@ class CategoryController extends Controller
 {
     public function index()
     {
+        $this->authorize('view', auth()->user());
         $categories = Category::paginate(6);
         return view('admin.category.categories', compact('categories'));
     }

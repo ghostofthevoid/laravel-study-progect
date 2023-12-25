@@ -13,6 +13,7 @@ class ProductController extends Controller
 {
     public function index()
     {
+        $this->authorize('view', auth()->user());
         $products = Product::paginate(6);
         return view('admin.product.products', compact('products'));
     }

@@ -10,6 +10,7 @@ class ColorController extends Controller
 {
     public function index()
     {
+        $this->authorize('view', auth()->user());
         $colors = Color::paginate(6);
         return view('admin.color.colors', compact('colors'));
     }

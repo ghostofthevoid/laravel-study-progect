@@ -23,19 +23,20 @@
 
                 <div class="collapse navbar-collapse" id="navmenu">
                     <ul class="navbar-nav ms-auto">
+                        @can('view', auth()->user())
                         <li class="nav-item">
-                            <a href="{{route('product.create')}}" class="nav-link">Add</a>
+                            <a href="{{route('admin.product.index')}}" class="nav-link">Admin</a>
                         </li>
+                        @endcan
                         <li class="nav-item">
                             <a href="{{route('product.index')}}" class="nav-link">View products</a>
                         </li>
+                            <li class="nav-item">
+                                <a href="{{ route('login') }}" class="nav-link">login</a>
+                            </li>
                         <li class="nav-item">
-                            <a href="{{route('main.product.index')}}" class="nav-link">Admin</a>
+                            <a href="#"><i class=" fa-solid fa-cart-shopping"><span><sup id="quantity"></sup></span></i></a>
                         </li>
-                        <li class="nav-item">
-                            <a href="#"><i class="fa-solid fa-cart-shopping"><span><sup id="quantity"></sup></span></i></a>
-                        </li>
-
                     </ul>
                 </div>
             </div>
