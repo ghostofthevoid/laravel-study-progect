@@ -61,10 +61,8 @@
                                 </div>
                             </li>
                         @endcan
-
-
                         <li class="nav-item">
-                            <a href="#"><i class=" fa-solid fa-cart-shopping"><span><sup id="quantity"></sup></span></i></a>
+                            <a href="#"><i class="fas fa-solid fa-shopping-cart"><span><sup id="quantity"></sup></span></i></a>
                         </li>
                     </ul>
                 </div>
