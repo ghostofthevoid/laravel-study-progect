@@ -1,5 +1,6 @@
 @extends('layouts.main')
 @section('content')
+
         <section class="p-5">
             <div class="container py-5">
                 <div class="row text-center">
@@ -42,7 +43,13 @@
                     @endforeach
                 </div>
             </div>
+            <div id="app">
+                <post-component>
+
+                </post-component>
+            </div>
         </section>
 
 @endsection
+
 

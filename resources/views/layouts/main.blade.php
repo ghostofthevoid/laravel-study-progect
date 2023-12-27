@@ -12,6 +12,8 @@
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
 
+
+
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     <title>Document</title>
@@ -40,27 +42,24 @@
                                 <a href="{{ route('login') }}" class="nav-link">login</a>
                             </li>
                         @endif
-                        @can(session('status'))
+                        @auth
                             <li class="nav-item dropdown">
-                                @if(isset(Auth::user()->name ))
-                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                                       data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                        {{ Auth::user()->name }}
-                                    </a>
-                                @endif
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                                   data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    {{ Auth::user()->name }}
+                                </a>
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
-
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
                                 </div>
                             </li>
-                        @endcan
+                        @endauth
                         <li class="nav-item">
                             <a href="#"><i class="fas fa-solid fa-shopping-cart"><span><sup id="quantity"></sup></span></i></a>
                         </li>
@@ -74,4 +73,10 @@
 <body>
 @yield('content');
 </body>
+<script>
+    import PostComponent from "../../js/components/PostComponent";
+    export default {
+        components: {PostComponent}
+    }
+</script>
 </html>
