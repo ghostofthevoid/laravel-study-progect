@@ -21,13 +21,7 @@ use Illuminate\Support\Facades\Route;
 Route::namespace('App\\Http\\Controllers\\Product')->group(function () {
     Route::get('/', 'IndexController')->name('product.index');
     Route::post('/products', 'StoreController')->name('product.store');
-    //Route::get('/products/create', 'CreateController')->name('product.create');
     Route::get('/products/{product}', 'ShowController')->name('product.show');
-//    Route::get('/products/{product}/edit', 'EditController')->name('product.edit');
-//    Route::patch('/products/{product}', 'UpdateController')->name('product.update');
-//    Route::delete('/products/{product}', 'DestroyController')->name('product.destroy');
-//
-//    Route::get('/products/{product}/restore', 'RestoreController');
 });
 
 
@@ -43,6 +37,8 @@ Route::namespace('App\\Http\\Controllers\\Admin')->middleware(['auth', 'admin'])
             Route::patch('/{category}', 'CategoryController@update')->name('admin.category.update');
             Route::delete('/{category}', 'CategoryController@delete')->name('admin.category.delete');
         });
+
+
         Route::prefix('colors')->group(function () {
             Route::get('/color', 'ColorController@index')->name('admin.color.index');
             Route::get('/create', 'ColorController@create')->name('admin.color.create');
@@ -81,5 +77,6 @@ Route::namespace('App\\Http\\Controllers')->group(function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
 
 

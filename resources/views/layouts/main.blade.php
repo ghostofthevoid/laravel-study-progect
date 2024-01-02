@@ -74,7 +74,7 @@
 @yield('content');
 </body>
 <script>
-    import PostComponent from "../../js/components/PostComponent";
+    import PostComponent from "../../js/components/IndexComponent";
     export default {
         components: {PostComponent}
     }
